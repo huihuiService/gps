@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twinmask.gps.msgdb.dao.master.mapper.GpsMapper">
+    <resultMap type="gpsInfo" id="gpsInfomap">
+        <id column="id" property="id"/>
+        <result column="imei" property="imei"/>
+        <result column="lat" property="lat"/>
+        <result column="lng" property="lng"/>
+        <result column="gps_time" property="gspTime"/>
+    </resultMap>
+
+    <select id="queryGpsInfos" resultMap="gpsInfomap">
+		select id,imei,lat,lng,gps_time from ${db}.gps_info_${tableDate}
+		where gps_time &gt;= #{startTime} and gpsTime &lt;= #{endTime}
+	</select>
+
+    <insert id="saveGpsInfos">
+        insert into ${db}.gps_info_${tableDate} (imei,lat,lng,gps_time)
+        values(#{imei},#{lat},#{lng},#{gps_time});
+    </insert>
+</mapper>

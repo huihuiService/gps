@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="ERROR" monitorInterval="60">
+
+	<Properties>
+        <Property name="logDir">logs</Property>
+        <property name="logPattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}][%l][%t][%level] %msg%n</property>
+        <property name="logFormat">UTF-8</property>
+        <property name="logSize">200MB</property>
+        <property name="logCount">100</property>
+        <property name="logLevel">ERROR</property>
+    </Properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" >
+            <PatternLayout pattern="${logPattern}" />
+        </Console>
+
+        <RollingFile name="ErrorFile" fileName="${logDir}/error.log"
+        	filePattern="${logDir}/error-%i.log.gz">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="${logPattern}" charset="${logFormat}" />
+            <SizeBasedTriggeringPolicy size="${logSize}" />
+            <DefaultRolloverStrategy max="${logCount}" />
+        </RollingFile>
+
+        <RollingFile name="RunFile" fileName="${logDir}/run.log"
+        	filePattern="${logDir}/run-%i.log.gz">
+            <PatternLayout pattern="${logPattern}" charset="${logFormat}" />
+            <SizeBasedTriggeringPolicy size="${logSize}" />
+            <DefaultRolloverStrategy max="${logCount}" />
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <logger name="com.alibaba.dubbo" level="ERROR" />
+        <logger name="io.netty" level="ERROR" />
+        <logger name="com.twinmask.gps" level="TRACE" />
+        <root level="${logLevel}">
+            <appender-ref ref="Console" />
+            <appender-ref ref="ErrorFile" />
+            <appender-ref ref="RunFile" />
+        </root>
+    </loggers>
+
+</configuration>

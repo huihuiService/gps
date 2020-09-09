@@ -1,0 +1,17 @@
+# SPRING
+spring:
+  profiles:
+    include:
+    - conf-default
+    active:
+    - dev
+
+dubbo:
+  application:
+    qos:
+      port: 7900
+  registry:
+    protocol: redis
+    address: ${spring.redis.host}:${spring.redis.port}
+    username: username
+    password: ${spring.redis.password}

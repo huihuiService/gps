@@ -1,0 +1,18 @@
+# SPRING
+spring:
+  redis:
+    timeout: 60000
+    lettuce:
+        pool:
+            min-idle: 1
+            max-active: 32
+    gps:
+      host: ${spring.redis.host}
+      port: ${spring.redis.port}
+      database: 1
+      password: ${spring.redis.password}
+      timeout: ${spring.redis.timeout}
+      lettuce:
+        pool:
+          min-idle: ${spring.redis.lettuce.pool.min-idle}
+          max-active: ${spring.redis.lettuce.pool.max-active}

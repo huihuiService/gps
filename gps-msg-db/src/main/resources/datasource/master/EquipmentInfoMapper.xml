@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.twinmask.gps.msgdb.dao.master.mapper.EquipmentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="belong_user" property="belongUser" jdbcType="VARCHAR" />
+    <result column="ter_protocol" property="terProtocol" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="offline_times" property="offlineTimes" jdbcType="INTEGER" />
+    <result column="ter_name" property="terName" jdbcType="VARCHAR" />
+    <result column="ter_pwd" property="terPwd" jdbcType="VARCHAR" />
+    <result column="ter_phone" property="terPhone" jdbcType="VARCHAR" />
+    <result column="latitude_longitude" property="latitudeLongitude" jdbcType="VARCHAR" />
+    <result column="wifi" property="wifi" jdbcType="VARCHAR" />
+    <result column="serial_num" property="serialNum" jdbcType="VARCHAR" />
+    <result column="ter_id" property="terId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, belong_user, ter_protocol, end_time, offline_times, ter_name, ter_pwd, ter_phone, 
+    latitude_longitude, wifi, serial_num, ter_id, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from equipment_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from equipment_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfoExample" >
+    delete from equipment_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfo" >
+    insert into equipment_info (id, belong_user, ter_protocol, 
+      end_time, offline_times, ter_name, 
+      ter_pwd, ter_phone, latitude_longitude, 
+      wifi, serial_num, ter_id, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{belongUser,jdbcType=VARCHAR}, #{terProtocol,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{offlineTimes,jdbcType=INTEGER}, #{terName,jdbcType=VARCHAR}, 
+      #{terPwd,jdbcType=VARCHAR}, #{terPhone,jdbcType=VARCHAR}, #{latitudeLongitude,jdbcType=VARCHAR}, 
+      #{wifi,jdbcType=VARCHAR}, #{serialNum,jdbcType=VARCHAR}, #{terId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfo" >
+    insert into equipment_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="belongUser != null" >
+        belong_user,
+      </if>
+      <if test="terProtocol != null" >
+        ter_protocol,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="offlineTimes != null" >
+        offline_times,
+      </if>
+      <if test="terName != null" >
+        ter_name,
+      </if>
+      <if test="terPwd != null" >
+        ter_pwd,
+      </if>
+      <if test="terPhone != null" >
+        ter_phone,
+      </if>
+      <if test="latitudeLongitude != null" >
+        latitude_longitude,
+      </if>
+      <if test="wifi != null" >
+        wifi,
+      </if>
+      <if test="serialNum != null" >
+        serial_num,
+      </if>
+      <if test="terId != null" >
+        ter_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="belongUser != null" >
+        #{belongUser,jdbcType=VARCHAR},
+      </if>
+      <if test="terProtocol != null" >
+        #{terProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offlineTimes != null" >
+        #{offlineTimes,jdbcType=INTEGER},
+      </if>
+      <if test="terName != null" >
+        #{terName,jdbcType=VARCHAR},
+      </if>
+      <if test="terPwd != null" >
+        #{terPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="terPhone != null" >
+        #{terPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="latitudeLongitude != null" >
+        #{latitudeLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="wifi != null" >
+        #{wifi,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="terId != null" >
+        #{terId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfoExample" resultType="java.lang.Integer" >
+    select count(*) from equipment_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update equipment_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongUser != null" >
+        belong_user = #{record.belongUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terProtocol != null" >
+        ter_protocol = #{record.terProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.offlineTimes != null" >
+        offline_times = #{record.offlineTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.terName != null" >
+        ter_name = #{record.terName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terPwd != null" >
+        ter_pwd = #{record.terPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terPhone != null" >
+        ter_phone = #{record.terPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitudeLongitude != null" >
+        latitude_longitude = #{record.latitudeLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wifi != null" >
+        wifi = #{record.wifi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNum != null" >
+        serial_num = #{record.serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terId != null" >
+        ter_id = #{record.terId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update equipment_info
+    set id = #{record.id,jdbcType=INTEGER},
+      belong_user = #{record.belongUser,jdbcType=VARCHAR},
+      ter_protocol = #{record.terProtocol,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      offline_times = #{record.offlineTimes,jdbcType=INTEGER},
+      ter_name = #{record.terName,jdbcType=VARCHAR},
+      ter_pwd = #{record.terPwd,jdbcType=VARCHAR},
+      ter_phone = #{record.terPhone,jdbcType=VARCHAR},
+      latitude_longitude = #{record.latitudeLongitude,jdbcType=VARCHAR},
+      wifi = #{record.wifi,jdbcType=VARCHAR},
+      serial_num = #{record.serialNum,jdbcType=VARCHAR},
+      ter_id = #{record.terId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfo" >
+    update equipment_info
+    <set >
+      <if test="belongUser != null" >
+        belong_user = #{belongUser,jdbcType=VARCHAR},
+      </if>
+      <if test="terProtocol != null" >
+        ter_protocol = #{terProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offlineTimes != null" >
+        offline_times = #{offlineTimes,jdbcType=INTEGER},
+      </if>
+      <if test="terName != null" >
+        ter_name = #{terName,jdbcType=VARCHAR},
+      </if>
+      <if test="terPwd != null" >
+        ter_pwd = #{terPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="terPhone != null" >
+        ter_phone = #{terPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="latitudeLongitude != null" >
+        latitude_longitude = #{latitudeLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="wifi != null" >
+        wifi = #{wifi,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        serial_num = #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="terId != null" >
+        ter_id = #{terId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twinmask.gps.msgdb.dao.master.pojo.EquipmentInfo" >
+    update equipment_info
+    set belong_user = #{belongUser,jdbcType=VARCHAR},
+      ter_protocol = #{terProtocol,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      offline_times = #{offlineTimes,jdbcType=INTEGER},
+      ter_name = #{terName,jdbcType=VARCHAR},
+      ter_pwd = #{terPwd,jdbcType=VARCHAR},
+      ter_phone = #{terPhone,jdbcType=VARCHAR},
+      latitude_longitude = #{latitudeLongitude,jdbcType=VARCHAR},
+      wifi = #{wifi,jdbcType=VARCHAR},
+      serial_num = #{serialNum,jdbcType=VARCHAR},
+      ter_id = #{terId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
