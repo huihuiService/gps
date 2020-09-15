@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +26,21 @@ public class EquipmentInfoController {
     private EquipmentInfoDaoImpl equipmentInfoDao;
 
 
+
+
+    @RequestMapping(value = "/get", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> getEquipmentInfoList(HttpServletRequest request, @RequestParam(value = "terName", required = false) String terName) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        List<EquipmentInfo> list  = equipmentInfoDao.selectAll(terName);
+
+        response.put("code", 200);
+        response.put("msg", "获取成功");
+        response.put("data", list);
+
+        return response;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Map<String, Object> addEquipmentInfo(HttpServletRequest request, @RequestBody EquipmentInfo equipmentInfo) {
@@ -37,6 +53,24 @@ public class EquipmentInfoController {
         } else {
             response.put("code", 500);
             response.put("msg", "添加失败");
+            response.put("data", null);
+        }
+
+        return response;
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> updateEquipmentInfo(HttpServletRequest request, @RequestBody EquipmentInfo equipmentInfo) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        int count = equipmentInfoDao.updateSelective(equipmentInfo);
+        if (count > 0) {
+            response.put("code", 200);
+            response.put("msg", "修改成功");
+            response.put("data", null);
+        } else {
+            response.put("code", 500);
+            response.put("msg", "修改失败");
             response.put("data", null);
         }
 

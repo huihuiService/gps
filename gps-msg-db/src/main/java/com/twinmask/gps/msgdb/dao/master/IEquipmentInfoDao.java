@@ -14,9 +14,14 @@ import java.util.List;
  **/
 public interface IEquipmentInfoDao {
 
+    List<EquipmentInfo> selectAll(String terName);
+
+
     EquipmentInfo selectByPrimaryKey(Integer id);
 
     int insert(EquipmentInfo record);
+
+    int updateSelective(EquipmentInfo record);
 
     int delete(Integer id);
 }
