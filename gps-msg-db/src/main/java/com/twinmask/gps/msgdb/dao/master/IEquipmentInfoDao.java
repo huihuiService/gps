@@ -14,7 +14,9 @@ import java.util.List;
  **/
 public interface IEquipmentInfoDao {
 
+    EquipmentInfo selectByPrimaryKey(Integer id);
 
     int insert(EquipmentInfo record);
 
+    int delete(Integer id);
 }

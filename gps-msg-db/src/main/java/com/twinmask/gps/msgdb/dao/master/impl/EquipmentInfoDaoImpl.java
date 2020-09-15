@@ -30,6 +30,18 @@ public class EquipmentInfoDaoImpl extends MybatisBaseDao implements IEquipmentIn
 
     @Override
     public int insert(EquipmentInfo record) {
+
         return mapper.insert(record);
     }
+
+    @Override
+    public int delete(Integer id) {
+        return mapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public EquipmentInfo selectByPrimaryKey(Integer id) {
+        return mapper.selectByPrimaryKey(id);
+    }
+
 }

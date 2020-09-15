@@ -33,4 +33,7 @@ public class GpsDaoImpl extends MybatisBaseDao implements IGpsDao {
     public List<GpsInfo> getGpsInfos(String imei, Timestamp startTime, Timestamp endTime, String db, String tableDate) {
         return mapper.queryGpsInfos(imei, startTime, endTime, db, tableDate);
     }
+
+
+
 }
